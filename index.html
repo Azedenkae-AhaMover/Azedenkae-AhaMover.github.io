@@ -7,6 +7,11 @@
     <style>
         body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #f4f4f9; }
         .container { background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; }
+        .header-logo {
+            max-width: 150px; /* Adjust size as needed */
+            height: auto;     /* Maintains aspect ratio */
+            margin-bottom: 20px; /* Adds space between logo and title */
+        }
         input, button { width: 100%; padding: 10px; margin-top: 10px; box-sizing: border-box; }
         button { background-color: #007bff; color: white; border: none; cursor: pointer; }
         #status { margin-top: 15px; font-weight: bold; }
@@ -14,6 +19,7 @@
 </head>
 <body>
     <div class="container">
+        <img src="company-logo.png" alt="Company 10 Year Anniversary Logo" class="header-logo">
         <h2>Create Your Birthday Profile Picture!</h2>
         <p>Upload a clear, forward-facing photo of yourself.</p>
         <form id="pfp-form">
@@ -46,9 +52,9 @@
                 const base64Image = reader.result.split(',')[1];
 
                 // --- IMPORTANT: CONFIGURE THESE ---
-                const DATABRICKS_DOMAIN = "https://<your-databricks-workspace>.databricks.com";
+                const DATABRICKS_DOMAIN = "https://dbc-5df0e7ae-82c9.cloud.databricks.com";
                 const ENDPOINT_URL = `${DATABRICKS_DOMAIN}/serving-endpoints/birthday-pfp-generator/invocations`;
-                const DATABRICKS_TOKEN = "<YOUR_DATABRICKS_PERSONAL_ACCESS_TOKEN>"; // Use a service principal for production!
+                const DATABRICKS_TOKEN = "<YOUR_DATABRICKS_PERSONAL_ACCESS_TOKEN>";
 
                 try {
                     const response = await fetch(ENDPOINT_URL, {
