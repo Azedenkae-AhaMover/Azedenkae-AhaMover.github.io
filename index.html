@@ -12,6 +12,12 @@
             height: auto;     /* Maintains aspect ratio */
             margin-bottom: 20px; /* Adds space between logo and title */
         }
+        .footer-logo {
+            max-width: 120px; /* Make it a bit smaller than the header logo */
+            height: auto;
+            margin-top: 30px; /* Add space above it */
+            opacity: 0.7;     /* Makes it a bit more subtle, remove if not desired */
+        }
         input, button { width: 100%; padding: 10px; margin-top: 10px; box-sizing: border-box; }
         button { background-color: #007bff; color: white; border: none; cursor: pointer; }
         #status { margin-top: 15px; font-weight: bold; }
@@ -28,6 +34,7 @@
             <button type="submit">Generate My Picture!</button>
         </form>
         <div id="status"></div>
+        <img src="ahamove_logo_transparent_bg.png" alt="Ahamove Logo" class="footer-logo">
     </div>
 
     <script>
