@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company Birthday Profile Picture Generator</title>
+    <style>
+        body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #f4f4f9; }
+        .container { background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; }
+        input, button { width: 100%; padding: 10px; margin-top: 10px; box-sizing: border-box; }
+        button { background-color: #007bff; color: white; border: none; cursor: pointer; }
+        #status { margin-top: 15px; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Create Your Birthday Profile Picture!</h2>
+        <p>Upload a clear, forward-facing photo of yourself.</p>
+        <form id="pfp-form">
+            <input type="email" id="email" placeholder="Enter your work email" required>
+            <input type="file" id="photo" accept="image/*" required>
+            <button type="submit">Generate My Picture!</button>
+        </form>
+        <div id="status"></div>
+    </div>
+
+    <script>
+        document.getElementById('pfp-form').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const email = document.getElementById('email').value;
+            const photoFile = document.getElementById('photo').files[0];
+            const statusDiv = document.getElementById('status');
+
+            if (!photoFile) {
+                statusDiv.textContent = 'Please select a photo!';
+                return;
+            }
+
+            statusDiv.textContent = 'Uploading and generating... Please wait, this may take a minute.';
+            statusDiv.style.color = 'orange';
+
+            // Convert image to Base64
+            const reader = new FileReader();
+            reader.readAsDataURL(photoFile);
+            reader.onload = async () => {
+                const base64Image = reader.result.split(',')[1];
+
+                // --- IMPORTANT: CONFIGURE THESE ---
+                const DATABRICKS_DOMAIN = "https://<your-databricks-workspace>.databricks.com";
+                const ENDPOINT_URL = `${DATABRICKS_DOMAIN}/serving-endpoints/birthday-pfp-generator/invocations`;
+                const DATABRICKS_TOKEN = "<YOUR_DATABRICKS_PERSONAL_ACCESS_TOKEN>"; // Use a service principal for production!
+
+                try {
+                    const response = await fetch(ENDPOINT_URL, {
+                        method: 'POST',
+                        headers: {
+                            'Authorization': `Bearer ${DATABRICKS_TOKEN}`,
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            "dataframe_split": {
+                                "columns": ["email", "image_base64"],
+                                "data": [[email, base64Image]]
+                            }
+                        })
+                    });
+
+                    if (response.ok) {
+                        const result = await response.json();
+                        statusDiv.textContent = result.predictions[0].status;
+                        statusDiv.style.color = 'green';
+                    } else {
+                        const error = await response.json();
+                        statusDiv.textContent = `Error: ${error.message || 'Failed to generate image.'}`;
+                        statusDiv.style.color = 'red';
+                    }
+                } catch (error) {
+                    statusDiv.textContent = 'Network error. Please try again.';
+                    statusDiv.style.color = 'red';
+                }
+            };
+            reader.onerror = () => {
+                statusDiv.textContent = 'Error reading the file.';
+                statusDiv.style.color = 'red';
+            };
+        });
+    </script>
+</body>
+</html>
