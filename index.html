@@ -4,38 +4,132 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Company Birthday Profile Picture Generator</title>
+    <!-- We will replace the entire <style> block below -->
     <style>
-        body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #f4f4f9; }
-        .container { background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; }
-        .header-logo {
-            max-width: 150px; /* Adjust size as needed */
-            height: auto;     /* Maintains aspect ratio */
-            margin-bottom: 20px; /* Adds space between logo and title */
-        }
-        .footer-logo {
-            max-width: 120px; /* Make it a bit smaller than the header logo */
-            height: auto;
-            margin-top: 30px; /* Add space above it */
-            opacity: 0.7;     /* Makes it a bit more subtle, remove if not desired */
-        }
-        input, button { width: 100%; padding: 10px; margin-top: 10px; box-sizing: border-box; }
-        button { background-color: #007bff; color: white; border: none; cursor: pointer; }
-        #status { margin-top: 15px; font-weight: bold; }
+      /* --- General Body and Layout Styling --- */
+      body {
+          font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+          display: flex;
+          flex-direction: column; /* Stack items vertically */
+          justify-content: center; /* Center vertically */
+          align-items: center; /* Center horizontally */
+          min-height: 100vh;
+          background-color: #F8F9FA; /* A light grey background like the image */
+          margin: 0;
+          padding: 20px;
+          box-sizing: border-box;
+      }
+
+      /* --- Wrapper for the Cake and Form Box --- */
+      /* This is the key to positioning the cake correctly */
+      .content-wrapper {
+          position: relative; /* This becomes the positioning parent for the cake */
+          width: 100%;
+          max-width: 380px;
+          margin-bottom: 80px; /* Make space for the footer logo */
+      }
+
+      /* --- The Birthday Cake Logo --- */
+      .header-logo {
+          position: absolute; /* Takes the logo out of the normal document flow */
+          width: 200px; /* Adjust size as needed */
+          height: auto;
+          top: 0; /* Align to the top of the content-wrapper */
+          left: 50%; /* Move the left edge to the center */
+          transform: translate(-50%, -50%); /* Shift it left and up by half its own size */
+          z-index: 10; /* Ensures the cake is on top of the white box */
+      }
+
+      /* --- The White Form Container --- */
+      .container {
+          background: white;
+          padding: 2.5rem;
+          padding-top: 100px; /* IMPORTANT: Creates space for the cake to sit in */
+          border-radius: 16px;
+          box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+          text-align: center;
+          width: 100%;
+      }
+
+      /* --- Form Element Styling --- */
+      .container h2 {
+          font-size: 24px;
+          font-weight: 600;
+          margin-top: 0;
+          margin-bottom: 8px;
+          color: #212529;
+      }
+
+      .container p {
+          color: #6c757d;
+          margin-bottom: 24px;
+      }
+
+      input[type="email"], input[type="file"] {
+          width: 100%;
+          padding: 12px;
+          margin-top: 10px;
+          box-sizing: border-box;
+          border-radius: 8px;
+      }
+
+      input[type="email"] {
+          border: 2px solid #F3C567; /* The gold border from the image */
+          font-size: 16px;
+      }
+
+      button {
+          width: 100%;
+          padding: 14px;
+          margin-top: 20px;
+          box-sizing: border-box;
+          background-color: #0D6EFD; /* The blue from the image */
+          color: white;
+          border: none;
+          cursor: pointer;
+          font-size: 16px;
+          font-weight: 600;
+          border-radius: 8px;
+      }
+
+      #status {
+          margin-top: 15px;
+          font-weight: bold;
+      }
+
+      /* --- The Ahamove Footer Logo --- */
+      .footer-logo {
+          position: fixed; /* Fixes it to the browser window */
+          bottom: 30px; /* 30px from the bottom */
+          left: 50%;
+          transform: translateX(-50%);
+          width: 120px; /* A good size for a footer logo */
+      }
     </style>
 </head>
 <body>
-    <div class="container">
-        <img src="cake_10.png" alt="Company 10 Year Anniversary Logo" class="header-logo">
-        <h2>Create Your Birthday Profile Picture!</h2>
-        <p>Upload a clear, forward-facing photo of yourself.</p>
-        <form id="pfp-form">
-            <input type="email" id="email" placeholder="Enter your work email" required>
-            <input type="file" id="photo" accept="image/*" required>
-            <button type="submit">Generate My Picture!</button>
-        </form>
-        <div id="status"></div>
-        <img src="ahamove_logo_transparent_bg.png" alt="Ahamove Logo" class="footer-logo">
+
+    <!-- This wrapper helps group the cake and the form box -->
+    <div class="content-wrapper">
+        <!-- The cake logo now sits ABOVE the container div -->
+        <img src="company-logo.png" alt="Company 10 Year Anniversary Logo" class="header-logo">
+        
+        <!-- The white box for the form -->
+        <div class="container">
+            <h2>Create Your Birthday Profile Picture!</h2>
+            <p>Upload a clear, forward-facing photo of yourself.</p>
+            
+            <form id="pfp-form">
+                <input type="email" id="email" placeholder="Enter your work email" required>
+                <input type="file" id="photo" accept="image/*" required>
+                <button type="submit">Generate My Picture!</button>
+            </form>
+            <div id="status"></div>
+        </div>
     </div>
+
+    <!-- The footer logo is now outside the main content wrapper -->
+    <img src="ahamove_logo_transparent_bg.png" alt="Ahamove Logo" class="footer-logo">
 
     <script>
         document.getElementById('pfp-form').addEventListener('submit', async function(event) {
