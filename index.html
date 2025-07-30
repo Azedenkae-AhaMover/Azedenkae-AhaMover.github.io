@@ -3,175 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Company Birthday Profile Picture Generator</title>
-    <!-- We will replace the entire <style> block below -->
+    <title>Company Birthday AI Avatar Generator</title>
+    <!-- Using the same modern layout styles -->
     <style>
-      /* --- General Body and Layout Styling --- */
-      body {
-          font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-          display: flex;
-          flex-direction: column; /* Stack items vertically */
-          justify-content: center; /* Center vertically */
-          align-items: center; /* Center horizontally */
-          min-height: 100vh;
-          background-color: #F8F9FA; /* A light grey background like the image */
-          margin: 0;
-          padding: 20px;
-          box-sizing: border-box;
-      }
-
-      /* --- Wrapper for the Cake and Form Box --- */
-      /* This is the key to positioning the cake correctly */
-      .content-wrapper {
-          position: relative; /* This becomes the positioning parent for the cake */
-          width: 100%;
-          max-width: 380px;
-          margin-bottom: 80px; /* Make space for the footer logo */
-      }
-
-      /* --- The Birthday Cake Logo --- */
-      .header-logo {
-          position: absolute; /* Takes the logo out of the normal document flow */
-          width: 200px; /* Adjust size as needed */
-          height: auto;
-          top: 0; /* Align to the top of the content-wrapper */
-          left: 50%; /* Move the left edge to the center */
-          transform: translate(-50%, -50%); /* Shift it left and up by half its own size */
-          z-index: 10; /* Ensures the cake is on top of the white box */
-      }
-
-      /* --- The White Form Container --- */
-      .container {
-          background: white;
-          padding: 2.5rem;
-          padding-top: 100px; /* IMPORTANT: Creates space for the cake to sit in */
-          border-radius: 16px;
-          box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
-          text-align: center;
-          width: 100%;
-      }
-
-      /* --- Form Element Styling --- */
-      .container h2 {
-          font-size: 24px;
-          font-weight: 600;
-          margin-top: 0;
-          margin-bottom: 8px;
-          color: #212529;
-      }
-
-      .container p {
-          color: #6c757d;
-          margin-bottom: 24px;
-      }
-
-      input[type="email"], input[type="file"] {
-          width: 100%;
-          padding: 12px;
-          margin-top: 10px;
-          box-sizing: border-box;
-          border-radius: 8px;
-      }
-
-      input[type="email"] {
-          border: 2px solid #F3C567; /* The gold border from the image */
-          font-size: 16px;
-      }
-
-      button {
-          width: 100%;
-          padding: 14px;
-          margin-top: 20px;
-          box-sizing: border-box;
-          background-color: #0D6EFD; /* The blue from the image */
-          color: white;
-          border: none;
-          cursor: pointer;
-          font-size: 16px;
-          font-weight: 600;
-          border-radius: 8px;
-      }
-
-      #status {
-          margin-top: 15px;
-          font-weight: bold;
-      }
-
-      /* --- The Ahamove Footer Logo --- */
-      .footer-logo {
-          position: fixed; /* Fixes it to the browser window */
-          bottom: 30px; /* 30px from the bottom */
-          left: 50%;
-          transform: translateX(-50%);
-          width: 120px; /* A good size for a footer logo */
-      }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 100vh; background-color: #F8F9FA; margin: 0; padding: 20px; box-sizing: border-box; }
+        .content-wrapper { position: relative; width: 100%; max-width: 380px; margin-bottom: 80px; }
+        .header-logo { position: absolute; width: 200px; height: auto; top: 0; left: 50%; transform: translate(-50%, -50%); z-index: 10; }
+        .container { background: white; padding: 2.5rem; padding-top: 100px; border-radius: 16px; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08); text-align: center; width: 100%; }
+        .container h2 { font-size: 24px; font-weight: 600; margin-top: 0; margin-bottom: 8px; color: #212529; }
+        .container p { color: #6c757d; margin-bottom: 24px; }
+        input[type="email"], input[type="file"] { width: 100%; padding: 12px; margin-top: 10px; box-sizing: border-box; border-radius: 8px; }
+        input[type="email"] { border: 2px solid #F3C567; font-size: 16px; }
+        button { width: 100%; padding: 14px; margin-top: 20px; box-sizing: border-box; background-color: #0D6EFD; color: white; border: none; cursor: pointer; font-size: 16px; font-weight: 600; border-radius: 8px; }
+        #status { margin-top: 15px; font-weight: bold; }
+        .footer-logo { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); width: 120px; }
     </style>
 </head>
 <body>
-
-    <!-- This wrapper helps group the cake and the form box -->
     <div class="content-wrapper">
-        <!-- The cake logo now sits ABOVE the container div -->
-        <img src="cake_10.png" alt="Company 10 Year Anniversary Logo" class="header-logo">
-        
-        <!-- The white box for the form -->
+        <img src="company-logo.png" alt="Company 10 Year Anniversary Logo" class="header-logo">
         <div class="container">
-            <h2>Create Your Birthday Profile Picture!</h2>
-            <p>Upload a clear, forward-facing photo of yourself.</p>
-            
+            <!-- Updated Text -->
+            <h2>Generate Your AI Birthday Avatar!</h2>
+            <p>Upload a clear, forward-facing photo to create your unique avatar.</p>
             <form id="pfp-form">
                 <input type="email" id="email" placeholder="Enter your work email" required>
                 <input type="file" id="photo" accept="image/*" required>
-                <button type="submit">Generate My Picture!</button>
+                <button type="submit">Generate My Avatar!</button>
             </form>
             <div id="status"></div>
         </div>
     </div>
-
-    <!-- The footer logo is now outside the main content wrapper -->
     <img src="ahamove_logo_transparent_bg.png" alt="Ahamove Logo" class="footer-logo">
 
     <script>
+        // The JavaScript section is IDENTICAL and does not need to change.
         document.getElementById('pfp-form').addEventListener('submit', async function(event) {
             event.preventDefault();
             const email = document.getElementById('email').value;
             const photoFile = document.getElementById('photo').files[0];
             const statusDiv = document.getElementById('status');
 
-            if (!photoFile) {
-                statusDiv.textContent = 'Please select a photo!';
-                return;
-            }
+            if (!photoFile) { statusDiv.textContent = 'Please select a photo!'; return; }
 
-            statusDiv.textContent = 'Uploading and generating... Please wait, this may take a minute.';
+            statusDiv.textContent = 'Generating your avatar... This can take a minute or two, please be patient!';
             statusDiv.style.color = 'orange';
 
-            // Convert image to Base64
             const reader = new FileReader();
             reader.readAsDataURL(photoFile);
             reader.onload = async () => {
                 const base64Image = reader.result.split(',')[1];
-
-                // --- IMPORTANT: CONFIGURE THESE ---
-                const DATABRICKS_DOMAIN = "https://dbc-5df0e7ae-82c9.cloud.databricks.com";
-                const ENDPOINT_URL = `${DATABRICKS_DOMAIN}/serving-endpoints/birthday-pfp-generator/invocations`;
-                const DATABRICKS_TOKEN = "<YOUR_DATABRICKS_PERSONAL_ACCESS_TOKEN>";
+                const DATABRICKS_DOMAIN = "https://<your-databricks-workspace>.databricks.com";
+                const ENDPOINT_URL = `${DATABRICKS_DOMAIN}/serving-endpoints/birthday-avatar-generator/invocations`; // Note the new endpoint name
+                const DATABRICKS_TOKEN = "<YOUR_DATABRICKS_TOKEN>";
 
                 try {
                     const response = await fetch(ENDPOINT_URL, {
                         method: 'POST',
-                        headers: {
-                            'Authorization': `Bearer ${DATABRICKS_TOKEN}`,
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            "dataframe_split": {
-                                "columns": ["email", "image_base64"],
-                                "data": [[email, base64Image]]
-                            }
-                        })
+                        headers: { 'Authorization': `Bearer ${DATABRICKS_TOKEN}`, 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ "dataframe_split": { "columns": ["email", "image_base64"], "data": [[email, base64Image]] } })
                     });
-
                     if (response.ok) {
                         const result = await response.json();
                         statusDiv.textContent = result.predictions[0].status;
@@ -181,15 +72,9 @@
                         statusDiv.textContent = `Error: ${error.message || 'Failed to generate image.'}`;
                         statusDiv.style.color = 'red';
                     }
-                } catch (error) {
-                    statusDiv.textContent = 'Network error. Please try again.';
-                    statusDiv.style.color = 'red';
-                }
+                } catch (error) { statusDiv.textContent = 'Network error. Please try again.'; statusDiv.style.color = 'red'; }
             };
-            reader.onerror = () => {
-                statusDiv.textContent = 'Error reading the file.';
-                statusDiv.style.color = 'red';
-            };
+            reader.onerror = () => { statusDiv.textContent = 'Error reading the file.'; statusDiv.style.color = 'red'; };
         });
     </script>
 </body>
